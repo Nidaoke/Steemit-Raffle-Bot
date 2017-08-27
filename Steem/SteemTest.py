@@ -75,12 +75,12 @@ def checkHour(): #Check the hour (For 12 and 0)
     pot = 0
     lastMinute = -1
 
-def everyMinute():
+def everyMinute(): #Checked every minute
     global candidates
     global pot
     global s
     global lastIndex
-    file = open('indexfile.txt', 'r')
+    file = open('indexfile.txt', 'r') #Adjust index to look for
     readint = int(file.read())
     if readint > lastIndex:
         lastIndex = readint
@@ -89,10 +89,10 @@ def everyMinute():
         file = open('indexfile.txt', 'w')
         file.write(str(lastIndex))
     file.close()
-
+    #Generate out account history
     gen = account.get_account_history(10000, 10000, (lastIndex + 1), None, -1, None, False)
 
-    while True:
+    while True: #Iterate through the account history
         try:
             print("Iterating")
             nex = next(gen)
@@ -101,15 +101,16 @@ def everyMinute():
             print("Nothing here!")
             break
         
-while True:
+while True: #ALways occur
     global checkedThisHour
+    #If it's every 12 hours
     if datetime.now().time().hour == 0 or datetime.now().time().hour == 12:
         if checkedThisHour == False:
             checkHour()
     else:
         if checkedThisHour == True:
             checkedThisHour = False;
-            
+    #Check every minute
     if datetime.now().time().minute > lastMinute:
         lastMinute = datetime.now().time().minute
         checkMinute()
