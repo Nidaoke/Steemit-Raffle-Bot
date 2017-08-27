@@ -12,7 +12,7 @@ lastMinute = -1 #Last minute that was checked
 checkedThisHour = False #Have we checked this hour
 candidates = [] #Who paid
 pot = 0 #How much money in total
-price = 1 #How much does a ticket cost
+price = 2 #How much does a ticket cost
 lastIndex = 31 #What's the last accountgen we checked
 
 def adduser(username, tickets): #Add a user to the candidates
@@ -59,7 +59,7 @@ def checkHour(): #Check the hour (For 12 and 0)
     candidateLength = len(candidates) #How many people
     if candidateLength > 0: #Pick a random person and send them 75% of the money
         randomInteger = randint(0, candidateLength - 1)
-        print("Send " + str(pot) + " sbd to " + candidates[randomInteger] + ", who bought " + str(candidates.count(candidates[randomInteger])) + " tickets!")
+        print("Send " + str(pot * (3/4)) + " sbd to " + candidates[randomInteger] + ", who bought " + str(candidates.count(candidates[randomInteger])) + " tickets!")
         s.commit.transfer(candidates[randomInteger], (pot * (3/4)), 'SBD', 'Congratulations!', 'raffle')
 
     '''file = open('indexfile.txt', 'r') #Adjust the index to look at
