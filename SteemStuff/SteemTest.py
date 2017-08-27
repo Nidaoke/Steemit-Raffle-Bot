@@ -102,7 +102,6 @@ def everyMinute(): #Checked every minute
             break
         
 while True: #ALways occur
-    global checkedThisHour
     #If it's every 12 hours
     if datetime.now().time().hour == 0 or datetime.now().time().hour == 12:
         if checkedThisHour == False:
