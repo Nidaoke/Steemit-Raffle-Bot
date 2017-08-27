@@ -13,7 +13,7 @@ checkedThisHour = False #Have we checked this hour
 candidates = [] #Who paid
 pot = 0 #How much money in total
 price = 1 #How much does a ticket cost
-lastIndex = -1 #What's the last accountgen we checked
+lastIndex = 31 #What's the last accountgen we checked
 
 def adduser(username, tickets): #Add a user to the candidates
     global candidates
@@ -62,7 +62,7 @@ def checkHour(): #Check the hour (For 12 and 0)
         print("Send " + str(pot) + " sbd to " + candidates[randomInteger] + ", who bought " + str(candidates.count(candidates[randomInteger])) + " tickets!")
         s.commit.transfer(candidates[randomInteger], (pot * (3/4)), 'SBD', 'Congratulations!', 'raffle')
 
-    file = open('indexfile.txt', 'r') #Adjust the index to look at
+    '''file = open('indexfile.txt', 'r') #Adjust the index to look at
     readint = int(file.read())
     if readint > lastIndex:
         lastIndex = readint
@@ -70,7 +70,7 @@ def checkHour(): #Check the hour (For 12 and 0)
         file.close
         file = open('indexfile.txt', 'w')
         file.write(str(lastIndex))
-    file.close()
+    file.close()'''
     candidates.clear() #Reset values
     pot = 0
     lastMinute = -1
@@ -80,7 +80,7 @@ def everyMinute(): #Checked every minute
     global pot
     global s
     global lastIndex
-    file = open('indexfile.txt', 'r') #Adjust index to look for
+    '''file = open('indexfile.txt', 'r') #Adjust index to look for
     readint = int(file.read())
     if readint > lastIndex:
         lastIndex = readint
@@ -88,7 +88,7 @@ def everyMinute(): #Checked every minute
         file.close
         file = open('indexfile.txt', 'w')
         file.write(str(lastIndex))
-    file.close()
+    file.close()'''
     #Generate out account history
     gen = account.get_account_history(10000, 10000, (lastIndex + 1), None, -1, None, False)
 
