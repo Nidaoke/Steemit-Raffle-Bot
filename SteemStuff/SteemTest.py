@@ -54,6 +54,7 @@ def checkHour(): #Check the hour (For 12 and 0)
     global s
     global lastIndex
     global lastMinute
+    global checkedThisHour
     print('checked hour')
     checkedThisHour = True
 
