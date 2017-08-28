@@ -56,23 +56,15 @@ def checkHour(): #Check the hour (For 12 and 0)
     global lastMinute
     print('checked hour')
     checkedThisHour = True
-    candidateLength = len(candidates) #How many people
-    if candidateLength > 0: #Pick a random person and send them 75% of the money
-        randomInteger = randint(0, candidateLength - 1)
-        print("Send " + str(pot * (3/4)) + " sbd to " + candidates[randomInteger] + ", who bought " + str(candidates.count(candidates[randomInteger])) + " tickets!")
-        s.commit.transfer(candidates[randomInteger], (pot * (3/4)), 'SBD', 'Congratulations!', 'raffle')
 
-    '''file = open('indexfile.txt', 'r') #Adjust the index to look at
-    readint = int(file.read())
-    if readint > lastIndex:
-        lastIndex = readint
-    else:
-        file.close
-        file = open('indexfile.txt', 'w')
-        file.write(str(lastIndex))
-    file.close()'''
-    candidates.clear() #Reset values
-    pot = 0
+    if datetime.now().time().hour == 4 or datetime.now().time().hour == 16:
+        candidateLength = len(candidates)
+        if candidateLength > 0:
+            randomInteger = randint(0, candidateLength - 1)
+            print("Send " + str(pot * (3/4)) + " sbd to " + candidates[randomInteger] + ", who bought " + str(candidates.count(candidates[randomInteger])) + " tickets!")
+            s.commit.transfer(candidates[randomInteger], (pot * (3/4)), 'SBD', 'Congratulations!', 'raffle')
+        candidates.clear() #Reset values
+        pot = 0
     lastMinute = -1
 
 def everyMinute(): #Checked every minute
@@ -89,6 +81,10 @@ def everyMinute(): #Checked every minute
         file = open('indexfile.txt', 'w')
         file.write(str(lastIndex))
     file.close()'''
+
+    if checkedThisHour == True:
+        checkedThisHour = False
+    
     #Generate out account history
     gen = account.get_account_history(10000, 10000, (lastIndex + 1), None, -1, None, False)
 
@@ -100,8 +96,17 @@ def everyMinute(): #Checked every minute
         except StopIteration:
             print("Nothing here!")
             break
+
+while True:
+    if datetime.now().time().minute == 0:
+        if checkedThisHour == False:
+            checkHour()
+    else:
+        if datetime.now().time().minute > lastMinute:
+            lastMinute = datetime.now().time().minute
+            checkMinute()
         
-while True: #ALways occur
+'''while True: #ALways occur
     #If it's every 12 hours
     if datetime.now().time().hour == 0 or datetime.now().time().hour == 12:
         if checkedThisHour == False:
@@ -114,4 +119,4 @@ while True: #ALways occur
         lastMinute = datetime.now().time().minute
         checkMinute()
     
-        
+ '''       
