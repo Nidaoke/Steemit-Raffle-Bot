@@ -72,6 +72,7 @@ def everyMinute(): #Checked every minute
     global pot
     global s
     global lastIndex
+    global checkedThisHour
     '''file = open('indexfile.txt', 'r') #Adjust index to look for
     readint = int(file.read())
     if readint > lastIndex:
