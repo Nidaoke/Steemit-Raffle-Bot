@@ -13,7 +13,7 @@ checkedThisHour = False #Have we checked this hour
 candidates = [] #Who paid
 pot = 0 #How much money in total
 price = 2 #How much does a ticket cost
-lastIndex = 31 #What's the last accountgen we checked
+lastIndex = 70 #What's the last accountgen we checked
 
 def adduser(username, tickets): #Add a user to the candidates
     global candidates
